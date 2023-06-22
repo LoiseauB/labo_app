@@ -5,7 +5,7 @@ Les couleurs
 
 * * *
 
-Couleur Principale
+Couleur de TOTO à la plage
 
 Couleur secondaire
 
