@@ -7,7 +7,7 @@ function App() {
   const [content, setContent] = useState("");
 
   useEffect(() => {
-    fetch("html-to-markdown.md")
+    fetch("articles/html-to-markdown.md")
       .then((res) => res.text())
       .then((text) => setContent(text));
   }, []);
