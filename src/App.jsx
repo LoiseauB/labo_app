@@ -1,23 +1,33 @@
-import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 
 import './App.css'
 
+const modules = import.meta.glob('./assets/articles/*.md', {eager: true, as: 'raw'})
+const article = []
+console.log(modules)
+
+for (const path in modules) {
+  article.push({slug: path.split('/').pop().replace('.md', ''), content: modules[path]})
+}
+
 function App() {
-  const [content, setContent] = useState("");
-
-  useEffect(() => {
-    fetch("articles/html-to-markdown.md")
-      .then((res) => res.text())
-      .then((text) => setContent(text));
-  }, []);
-
+  
   return (
     <>
-    <div className="post">
-      <ReactMarkdown children={content} />
-    </div>
+    <hr/>
+    {article.map(({slug, content}) => (
+      <div key={slug}>
+        <h1>{slug}</h1><br/>
+        <ReactMarkdown children={content} />
+        <hr/>
+      </div>
       
+
+      
+    )
+    
+    )}
+    
     </>
   )
 }
