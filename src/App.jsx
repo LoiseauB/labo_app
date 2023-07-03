@@ -1,6 +1,9 @@
 import ReactMarkdown from "react-markdown";
 
 import './App.css'
+import {Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Article from "./pages/article";
 
 const modules = import.meta.glob('./assets/articles/*.md', {eager: true, as: 'raw'})
 const article = []
@@ -13,22 +16,40 @@ for (const path in modules) {
 function App() {
   
   return (
-    <>
-    <hr/>
-    {article.map(({slug, content}) => (
+    <Router>
+      {article.map(({slug}) => (
       <div key={slug}>
-        <h1>{slug}</h1><br/>
-        <ReactMarkdown children={content} />
-        <hr/>
-      </div>
+        <Link to={`/${slug}`}>{slug}</Link>
+      </div>))}
+
+      <Routes>
+      {article.map(({slug, content}) => (
+        <Route key={slug} path={`/${slug}`} element={<Article content={content}/>} />
+      ))}
+      </Routes>
+    </Router>
+    
+    
+    
+    
+    
+    
+    // <>
+    // <hr/>
+    // {article.map(({slug, content}) => (
+    //   <div key={slug}>
+    //     <h1>{slug}</h1><br/>
+    //     <ReactMarkdown children={content} />
+    //     <hr/>
+    //   </div>
       
 
       
-    )
+    // )
     
-    )}
+    // )}
     
-    </>
+    // </>
   )
 }
 
